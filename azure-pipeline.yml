@@ -21,7 +21,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       az group create --name $(resourceGroup) --location centralus
-      az appservice plan create --name $(appServicePlan) --resource-group $(resourceGroup) --sku B1 --is-linux
+      az appservice plan create --name $(appServicePlan) --resource-group $(resourceGroup) --sku F1 --is-linux
       az webapp create --resource-group $(resourceGroup) --plan $(appServicePlan) --name $(appName) --runtime "NODE|20-lts"
 
 - task: NodeTool@0
@@ -34,8 +34,19 @@ steps:
     npm run build || echo "No build step"
   displayName: 'Install dependencies and build'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/drop.zip'
+    replaceExistingArchive: true
+
+- publish: '$(Build.ArtifactStagingDirectory)/drop.zip'
+  artifact: drop
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Gitwebapp'
     appName: '$(appName)'
-    package: '$(Build.ArtifactStagingDirectory)/drop.zip'
+    package: '$(Pipeline.Workspace)/drop/drop.zip'
