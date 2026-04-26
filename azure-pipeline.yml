@@ -21,7 +21,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       az group create --name $(resourceGroup) --location centralus
-      az appservice plan create --name $(appServicePlan) --resource-group $(resourceGroup) --sku F1 --is-linux
+      az appservice plan create --name $(appServicePlan) --resource-group $(resourceGroup) --sku B1 --is-linux
       az webapp create --resource-group $(resourceGroup) --plan $(appServicePlan) --name $(appName) --runtime "NODE|20-lts"
 
 - task: NodeTool@0
