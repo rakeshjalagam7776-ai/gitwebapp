@@ -38,4 +38,4 @@ steps:
   inputs:
     azureSubscription: 'Gitwebapp'
     appName: '$(appName)'
-    package: '$(Pipeline.Workspace)/drop/drop.zip'
+    package: '$(Pipeline.Workspace)/drop.zip'
