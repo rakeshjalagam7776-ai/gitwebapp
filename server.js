@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
     Hello from Azure Web App via DevOps CI/CD!<br/>
     Files (server.js, package.json, azure-pipelines.yml) created in Git Local.<br/>
     Pushed these local files to GitHub.<br/>
-    Then pushed GitHub repo to Azure DevOps repo.<br/>
+    Then pushed GitHub to Azure DevOps .<br/>
     Finally, using DevOps CI/CD, created Web App in Azure App Service.
   `);
 });
